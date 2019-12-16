@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="MVVMProjectView.Views.StatusView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MVVMProjectView.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="910"
+             MinWidth="910"
+             MinHeight="450">
+    <UserControl.Resources>
+        <DataTemplate x:Key="Level2">
+            <StackPanel>
+                <Separator Visibility="Hidden" />
+                <Border CornerRadius="5" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="752">
+                    <StackPanel Orientation="Horizontal">
+
+                        <Label VerticalAlignment="Center" Content="{Binding name}" FontSize="36" Margin="0,20" Width="479"/>
+                        <StackPanel>
+                            <Separator Visibility="Hidden" />
+                            <Button Click="Execute_Click" Tag="{Binding id}" Content="{Binding btnState, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="115" Height="40"/>
+                            <Separator Visibility="Hidden" Height="4"/>
+                            <Button Click="Edit_Click" Tag="{Binding id}" Content="Edit" HorizontalAlignment="Left" Width="115" Height="40"/>
+                        </StackPanel>
+                        <Separator Visibility="Hidden" Width="46"/>
+                        <Border CornerRadius="3" BorderBrush="Black" BorderThickness="1" Background="{Binding stateBackGround, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="110">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding stateText, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" TextAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                        </Border>
+
+                    </StackPanel>
+                </Border>
+                <Separator Visibility="Hidden" />
+            </StackPanel>
+        </DataTemplate>
+
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid Margin="54,0,54,0" Width="785" VerticalAlignment="Top">
+            <Label Content="Componenten Overzicht" HorizontalAlignment="Left" VerticalAlignment="Top" Height="61" Width="786" FontSize="36"/>
+
+            <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Margin="0,68,0,0">
+                <Label Content="category:" />
+                <ComboBox x:Name="cbCategory" DisplayMemberPath="name" SelectedValuePath="name" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
+                <Label Content="status:" />
+                <ComboBox x:Name="cbStatus" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
+                <Separator Width="100" Visibility="Hidden"/>
+                <Button Content="Refrech data"  Width="75" Click="Refresh_Click" />
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Width="785" Height="32" Margin="54,102,54,0">
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="460">
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"><Run Text="component "/><Run Text="name"/></TextBlock>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="170">
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Text="Actions" FontSize="18" FontWeight="Bold"/>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="155">
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Text="State" FontSize="18" FontWeight="Bold" />
+            </Border>
+        </StackPanel>
+
+        <ListView x:Name="lv" Margin="54,132,54,0" VerticalAlignment="Top" Width="785" ItemTemplate="{DynamicResource Level2}"/>
+    </Grid>
+</UserControl>

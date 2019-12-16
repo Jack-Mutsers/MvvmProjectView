@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="MVVMProjectView.Views.Profile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MVVMProjectView.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="400">
+    <Grid>
+        <Label Content="Account management" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="372" FontSize="36"/>
+
+        <Label Content="Change password" HorizontalAlignment="Left" Margin="99,84,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+        <Label Content="new password:" HorizontalAlignment="Left" Margin="85,128,0,0" VerticalAlignment="Top"/>
+        <PasswordBox PasswordChanged="onPasswordChanged" HorizontalAlignment="Left" Height="23" Margin="178,131,0,0" VerticalAlignment="Top" Width="120"/>
+
+        <Label Content="repeat password:" HorizontalAlignment="Left" Margin="73,166,0,0" VerticalAlignment="Top"/>
+        <PasswordBox  PasswordChanged="RePasswordBox_PasswordChanged" HorizontalAlignment="Left" Height="23" Margin="178,169,0,0" VerticalAlignment="Top" Width="120" KeyUp="Update_Password_KeyUp"/>
+
+        <Button Content="update" HorizontalAlignment="Left" Margin="127,210,0,0" VerticalAlignment="Top" Width="103" Height="28" Click="Update_Password_Click"/>
+
+        <Button Content="delete account" HorizontalAlignment="Left" Margin="113,304,0,0" VerticalAlignment="Top" Width="143" Height="34" Click="Delete_Account_Click"/>
+        <Label Content="Remove Account" HorizontalAlignment="Left" Margin="99,260,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+    </Grid>
+</UserControl>
