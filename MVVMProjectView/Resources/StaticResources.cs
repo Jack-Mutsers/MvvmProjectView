@@ -20,7 +20,6 @@ namespace MVVMProjectView.Resources
             }
         }
 
-
         public static Guid ApiKey { get; set; } = Guid.Empty;
         public static User UserData { get; set; } = new User();
         public static Category CategorieData { get; set; } = new Category();

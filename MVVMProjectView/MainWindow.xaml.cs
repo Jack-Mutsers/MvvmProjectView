@@ -100,6 +100,15 @@ namespace MVVMProjectView
         {
             if (StaticResources.resources.LoggedIn)
             {
+                if (connection.Logout())
+                {
+                    StaticResources.resources.LoginMessage = "";
+                    StaticResources.resources.DeleteMessage = "";
+                    StaticResources.resources.NoteMessage = "You have Logged out successfuly";
+                    StaticResources.resources.LoggedIn = false;
+
+                    DataContext = new LoginViewModel();
+                }
             }
         }
 

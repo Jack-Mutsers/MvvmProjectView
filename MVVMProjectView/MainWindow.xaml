@@ -102,6 +102,8 @@
                         <Label Content="Logout" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </StackPanel>
                 </ListView>
+
+                <Separator Height="7" Visibility="Hidden"/>
             </StackPanel>
         </DockPanel>
 

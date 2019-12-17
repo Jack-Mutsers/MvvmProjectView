@@ -181,6 +181,27 @@ namespace MVVMProjectView.Connection
 
         }
 
+        public bool Logout()
+        {
+            var client = new RestClient("https://localhost:5001/api/user/logout");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Postman-Token", "81bd9ed6-1cfc-41a0-804d-9104290a019f");
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("ApiKey", StaticResources.ApiKey.ToString());
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("undefined", "\"" + StaticResources.ApiKey.ToString() + "\"", ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+
+            ResponseValidation(response.StatusCode);
+            if (response.IsSuccessful)
+            {
+                return true;
+            }
+
+            return false;
+
+        }
+
         private void ResponseValidation(HttpStatusCode response){
             if (response == HttpStatusCode.Unauthorized) {
                 StaticResources.mainWindow.DataContext = new LoginViewModel();

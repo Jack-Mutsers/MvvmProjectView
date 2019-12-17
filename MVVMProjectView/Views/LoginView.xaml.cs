@@ -32,6 +32,7 @@ namespace MVVMProjectView.Views
             DataContext = user;
             lblMessages.DataContext = StaticResources.resources;
             DelMessage.DataContext = StaticResources.resources;
+            lblNotification.DataContext = StaticResources.resources;
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
@@ -57,6 +58,7 @@ namespace MVVMProjectView.Views
         private void login()
         {
             StaticResources.resources.DeleteMessage = "";
+            StaticResources.resources.NoteMessage = "";
             try
             {
                 bool succes = false;

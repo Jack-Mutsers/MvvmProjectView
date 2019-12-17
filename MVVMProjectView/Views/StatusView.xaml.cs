@@ -44,11 +44,15 @@ namespace MVVMProjectView.Views
             refresher.Interval = TimeSpan.FromMilliseconds(3000);
             refresher.Tick += timer_Tick;
             refresher.Start();
+
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            UpdateContent();
+            if (StaticResources.resources.LoggedIn)
+            {
+                UpdateContent();
+            }
         }
 
         private void UpdateContent()

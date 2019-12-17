@@ -10,19 +10,27 @@ namespace MVVMProjectView.Resources
 {
     public class Resources : INotifyPropertyChanged
     {
-        private string _LoginMessage;
-
+        private string _LoginMessage = "";
         public string LoginMessage
         {
             get { return _LoginMessage; }
             set { _LoginMessage = value; OnPropertyChanged("LoginMessage"); }
         }
 
+        private string _NoteMessage = "";
+        public string NoteMessage
+        {
+            get { return _NoteMessage; }
+            set { _NoteMessage = value; OnPropertyChanged("NoteMessage"); }
+        }
+
+
         private bool _LoggedIn = false;
         public bool LoggedIn { 
             get { return _LoggedIn; }
             set { _LoggedIn = value; OnPropertyChanged("LoggedIn"); } 
         }
+
 
         private string _UpdateMessage = "";
         public string UpdateMessage
@@ -31,12 +39,14 @@ namespace MVVMProjectView.Resources
             set { _UpdateMessage = value; OnPropertyChanged("UpdateMessage"); } 
         }
 
+
         private string _UpdateError = "";
         public string UpdateError
         { 
             get { return _UpdateError; }
             set { _UpdateError = value; OnPropertyChanged("UpdateError"); } 
         }
+
 
         private string _DeleteMessage = "";
         public string DeleteMessage
@@ -45,12 +55,14 @@ namespace MVVMProjectView.Resources
             set { _DeleteMessage = value; OnPropertyChanged("DeleteMessage"); } 
         }
 
+
         private string _DeleteError = "";
         public string DeleteError
         { 
             get { return _DeleteError; }
             set { _DeleteError = value; OnPropertyChanged("DeleteError"); }
         }
+
 
         private string _CategoryName = "";
         public string CategoryName
@@ -59,12 +71,14 @@ namespace MVVMProjectView.Resources
             set { _CategoryName = value; OnPropertyChanged("CategoryName"); }
         }
 
+
         private string _ComponentName = "";
         public string ComponentName
         {
             get { return _ComponentName; }
             set { _ComponentName = value; OnPropertyChanged("ComponentName"); }
         }
+
 
         private string _NewCatMessage = "";
         public string NewCatMessage
@@ -73,12 +87,14 @@ namespace MVVMProjectView.Resources
             set { _NewCatMessage = value; OnPropertyChanged("NewCatMessage"); }
         }
 
+
         private string _NewCatError = "";
         public string NewCatError
         {
             get { return _NewCatError; }
             set { _NewCatError = value; OnPropertyChanged("NewCatError"); }
         }
+
 
         private string _NewCompError = "";
         public string NewCompError
@@ -87,12 +103,14 @@ namespace MVVMProjectView.Resources
             set { _NewCompError = value; OnPropertyChanged("NewCompError"); }
         }
 
+
         private string _NewCompMessage = "";
         public string NewCompMessage
         {
             get { return _NewCompMessage; }
             set { _NewCompMessage = value; OnPropertyChanged("NewCompMessage"); }
         }
+
 
         //below is the boilerplate code supporting PropertyChanged events:
         public event PropertyChangedEventHandler PropertyChanged;
