@@ -30,7 +30,8 @@ namespace MVVMProjectView.Views
         {
             InitializeComponent();
             DataContext = user;
-            lblMessages.DataContext = API.resources;
+            lblMessages.DataContext = StaticResources.resources;
+            DelMessage.DataContext = StaticResources.resources;
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
@@ -55,7 +56,7 @@ namespace MVVMProjectView.Views
 
         private void login()
         {
-
+            StaticResources.resources.DeleteMessage = "";
             try
             {
                 bool succes = false;
@@ -67,13 +68,13 @@ namespace MVVMProjectView.Views
 
                 if (succes)
                 {
-                    API.resources.LoggedIn = true;
-                    API.mainWindow.DataContext = new StatusViewModel();
+                    StaticResources.resources.LoggedIn = true;
+                    StaticResources.mainWindow.DataContext = new StatusViewModel();
                 }
                 else
                 {
-                    API.resources.LoginMessage = "The wrong username or password has been entered, please try again";
-                    string testc = API.resources.LoginMessage;
+                    StaticResources.resources.LoginMessage = "The wrong username or password has been entered, please try again";
+                    string testc = StaticResources.resources.LoginMessage;
                     user.password = string.Empty;
                     pwBox.Password = string.Empty;
                 }
@@ -81,7 +82,7 @@ namespace MVVMProjectView.Views
             catch (Exception ex)
             {
                 var exeption = ex;
-                API.resources.LoginMessage = "Something went wrong, please try again";
+                StaticResources.resources.LoginMessage = "Something went wrong, please try again";
             }
         }
     }

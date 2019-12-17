@@ -45,7 +45,9 @@
                 <Label Content="status:" />
                 <ComboBox x:Name="cbStatus" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
                 <Separator Width="100" Visibility="Hidden"/>
-                <Button Content="Refrech data"  Width="75" Click="Refresh_Click" />
+                <Button Content="Refrech data"  Width="75" Height="26" Click="Refresh_Click" />
+                <Separator Width="15" Visibility="Hidden"/>
+                <Button Content="Add New Component"  Height="26" Click="Add_New_Click" />
             </StackPanel>
         </Grid>
 

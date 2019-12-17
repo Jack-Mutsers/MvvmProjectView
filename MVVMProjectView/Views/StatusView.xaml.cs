@@ -26,7 +26,7 @@ namespace MVVMProjectView.Views
     {
         DispatcherTimer refresher = new DispatcherTimer();
         ApiConnector connector = new ApiConnector();
-        List<Categorie> CategorieList;
+        List<Category> CategorieList;
         List<Component> components = new List<Component>();
         List<string> sortingLst = new List<string>() { "open", "closed" };
 
@@ -54,7 +54,7 @@ namespace MVVMProjectView.Views
         private void UpdateContent()
         {
             int index = cbCategory.SelectedIndex;
-            CategorieList = new List<Categorie>();
+            CategorieList = new List<Category>();
 
             if (GetDataContext())
             {
@@ -72,7 +72,7 @@ namespace MVVMProjectView.Views
             int index = cbCategory.SelectedIndex;
             int statusIndex = cbStatus.SelectedIndex;
 
-            if (CategorieList.Count > 0)
+            if (CategorieList != null && CategorieList.Count > 0)
             {
                 components = CategorieList[index].Components.ToList();
 
@@ -116,6 +116,12 @@ namespace MVVMProjectView.Views
         {
             connector.ExtendLoginTime();
             UpdateContent();
+        }
+
+        private void Add_New_Click(object sender, RoutedEventArgs e)
+        {
+            connector.ExtendLoginTime();
+            StaticResources.mainWindow.DataContext = new NewComponentsView();
         }
 
         private void Execute_Click(object sender, RoutedEventArgs e)

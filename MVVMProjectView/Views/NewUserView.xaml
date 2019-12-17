@@ -5,16 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVMProjectView.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="910">
     <Grid>
-        <Label Content="Add new user" HorizontalAlignment="Left" VerticalAlignment="Top" Height="61" FontSize="36" Margin="84,14,0,0"/>
+        <Grid Margin="54,0,54,0" Width="785" VerticalAlignment="Top">
 
-        <Label Content="Username:" HorizontalAlignment="Left" Margin="78,80,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbBox" Text="{Binding username, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="149,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Add new user" HorizontalAlignment="Left" VerticalAlignment="Top" Height="61" FontSize="36" />
 
-        <Label Content="Password:" HorizontalAlignment="Left" Margin="82,123,0,0" VerticalAlignment="Top"/>
-        <PasswordBox x:Name="pwBox" PasswordChanged="PasswordBox_PasswordChanged" HorizontalAlignment="Left" Margin="149,126,0,0" VerticalAlignment="Top" Width="120" Height="23"/>
+            <Label Content="Username:" HorizontalAlignment="Left" Margin="48,80,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="tbBox" Text="{Binding username, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="119,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
-        <Button Content="Create" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="167,167,0,0" Click="BtnCreate_Click"/>
+            <Label Content="Password:" HorizontalAlignment="Left" Margin="52,123,0,0" VerticalAlignment="Top"/>
+            <PasswordBox x:Name="pwBox" PasswordChanged="PasswordBox_PasswordChanged" HorizontalAlignment="Left" Margin="119,126,0,0" VerticalAlignment="Top" Width="120" Height="23"/>
+
+            <Button Content="Create" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="137,167,0,0" Click="BtnCreate_Click"/>
+        </Grid>
     </Grid>
 </UserControl>

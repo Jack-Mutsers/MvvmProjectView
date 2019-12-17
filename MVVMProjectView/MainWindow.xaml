@@ -14,9 +14,6 @@
         <DataTemplate x:Name="CategoryViewTemplate" DataType="{x:Type viewmodels:CategoryViewModel}">
             <views:CategoryView DataContext="{Binding}"/>
         </DataTemplate>
-        <DataTemplate x:Name="ComponentsViewTemplate" DataType="{x:Type viewmodels:ComponentsViewModel}">
-            <views:ComponentsView DataContext="{Binding}"/>
-        </DataTemplate>
         <DataTemplate x:Name="LoginViewTemplate" DataType="{x:Type viewmodels:LoginViewModel}">
             <views:LoginView DataContext="{Binding}"/>
         </DataTemplate>
@@ -57,25 +54,25 @@
                 <ListView IsEnabled="{Binding Path=LoggedIn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" MouseLeftButtonUp="StatusView_Clicked">
                     <StackPanel Orientation="Horizontal">
                         <Image Height="50" Width="50" />
-                        <Label Content="Component Overview" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Label Content="Component List" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </StackPanel>
                 </ListView>
 
                 <Separator Height="7" Visibility="Hidden"/>
 
-                <ListView IsEnabled="{Binding Path=LoggedIn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" MouseLeftButtonUp="NewCategorie_Clicked">
+                <ListView IsEnabled="{Binding Path=LoggedIn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" MouseLeftButtonUp="CategorieView_Clicked">
                     <StackPanel Orientation="Horizontal">
                         <Image Height="50" Width="50" />
-                        <Label Content="Add Type" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Label Content="Category List" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </StackPanel>
                 </ListView>
 
                 <Separator Height="7" Visibility="Hidden"/>
 
-                <ListView IsEnabled="{Binding Path=LoggedIn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" MouseLeftButtonUp="NewComponent_Clicked">
+                <ListView IsEnabled="{Binding Path=LoggedIn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" MouseLeftButtonUp="ComponentView_Clicked">
                     <StackPanel Orientation="Horizontal">
                         <Image Height="50" Width="50" />
-                        <Label Content="Add Component" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Label Content="Component List" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </StackPanel>
                 </ListView>
 

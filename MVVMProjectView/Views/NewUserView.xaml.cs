@@ -45,6 +45,7 @@ namespace MVVMProjectView.Views
                 if (user.username != null && user.username.Length > 2 && user.password.Length > 4)
                 {
                     ApiConnector connector = new ApiConnector();
+                    user.password = StaticResources.Encryptor(user.password);
                     succes = connector.NewUser(user);
                 }
 

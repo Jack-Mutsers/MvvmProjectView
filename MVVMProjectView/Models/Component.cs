@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace MVVMProjectView.Models
 {
-    class Component
+    public class Component
     {
         public int id { get; set; }
         public string name { get; set; }

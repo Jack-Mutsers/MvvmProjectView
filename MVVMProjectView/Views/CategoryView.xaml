@@ -5,8 +5,54 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVMProjectView.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="910">
+    <UserControl.Resources>
+        <DataTemplate x:Key="Level2">
+
+            <StackPanel>
+                <Separator Visibility="Hidden" />
+                <Border CornerRadius="5" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="666">
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border CornerRadius="3" BorderBrush="Black" BorderThickness="1" Background="{Binding stateBackGround, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="70">
+
+                        </Border>
+                        <Separator Visibility="Hidden" Width="46"/>
+                        <Label VerticalAlignment="Center" Content="{Binding name}" FontSize="36" Margin="0,20" Width="430"/>
+                        <StackPanel>
+                            <Separator Visibility="Hidden" />
+                            <Button Click="Delete_Click" Tag="{Binding id}" Content="Delete" HorizontalAlignment="Left" Width="115" Height="40"/>
+                            <Separator Visibility="Hidden" Height="4"/>
+                            <Button Click="Edit_Click" Tag="{Binding id}" Content="Edit" HorizontalAlignment="Left" Width="115" Height="40"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Border>
+                <Separator Visibility="Hidden" />
+            </StackPanel>
+        </DataTemplate>
+
+    </UserControl.Resources>
     <Grid>
-            
+        <Grid Margin="54,0,54,0" Width="785" VerticalAlignment="Top" Height="90">
+            <Label Content="Category List" HorizontalAlignment="Left" VerticalAlignment="Top" Height="61" Width="700" FontSize="36"/>
+            <StackPanel Orientation="Horizontal"  VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                <Button Content="Add new category" Width="110" Height="26" Click="Add_New_Click" />
+                <Separator Width="15" Visibility="Hidden"/>
+                <Button Content="Reload categories" Width="110" Height="26" Click="Refresh_Click" />
+            </StackPanel>
+        </Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Width="700" Height="32" Margin="54,102,54,0">
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="85">
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Text="Icon" FontSize="18" FontWeight="Bold" />
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="445">
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Text="component name"/>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="170">
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Text="Actions" FontSize="18" FontWeight="Bold"/>
+            </Border>
+        </StackPanel>
+        <ListView x:Name="lv" Margin="54,132,54,0" VerticalAlignment="Top" Width="700" ItemTemplate="{DynamicResource Level2}"/>
     </Grid>
 </UserControl>

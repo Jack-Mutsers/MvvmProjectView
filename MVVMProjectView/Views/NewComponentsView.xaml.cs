@@ -24,5 +24,10 @@ namespace MVVMProjectView.Views
         {
             InitializeComponent();
         }
+
+        private void Add_New_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

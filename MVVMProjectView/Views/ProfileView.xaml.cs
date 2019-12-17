@@ -1,4 +1,6 @@
 ﻿using MVVMProjectView.Connection;
+using MVVMProjectView.Models;
+using MVVMProjectView.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,14 +26,18 @@ namespace MVVMProjectView.Views
         private string password { get; set;}
         private string repassword { get; set;}
         ApiConnector connector = new ApiConnector();
-
+        User user;
 
         public Profile()
         {
             InitializeComponent();
+            lblError.DataContext = StaticResources.resources;
+            lblMessage.DataContext = StaticResources.resources;
+            DelError.DataContext = StaticResources.resources;
+            user = StaticResources.UserData;
         }
 
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        private void onPasswordChanged(object sender, RoutedEventArgs e)
         {
             if (this.DataContext != null)
             { password = ((PasswordBox)sender).Password; }
@@ -60,16 +66,45 @@ namespace MVVMProjectView.Views
 
         private void UpdatePassword()
         {
-            connector.ExtendLoginTime();
-            if (password == repassword)
+            connector.ExtendLoginTime(); 
+            Keyboard.ClearFocus();
+            if (password == repassword && !string.IsNullOrEmpty(password))
             {
-                int testc = 1;
+                user.password = StaticResources.Encryptor(password);
+                if(connector.UpdateUser(user)){
+                    tbPassword.Password = "";
+                    tbPasswordConf.Password = "";
+
+                    StaticResources.resources.UpdateError = "";
+                    StaticResources.resources.UpdateMessage = "Password had been updated";
+                }
+            }
+            else
+            {
+                StaticResources.resources.UpdateMessage = "";
+
+                if (string.IsNullOrEmpty(password))
+                {
+                    StaticResources.resources.UpdateError = "A password needs to be set!";
+                }
+                else if (password != repassword)
+                {
+                    StaticResources.resources.UpdateError = "Passwords do not match!";
+                }
             }
         }
 
         private void Delete_Account_Click(object sender, RoutedEventArgs e)
         {
-
+            if (connector.DeleteUser())
+            {
+                StaticResources.resources.DeleteMessage = "User has been deleted";
+                StaticResources.resources.DeleteError = "";
+            }
+            else
+            {
+                StaticResources.resources.DeleteError = "Something went wrong during the delete action";
+            }
         }
     }
 }

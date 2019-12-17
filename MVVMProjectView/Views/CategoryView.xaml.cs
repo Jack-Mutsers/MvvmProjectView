@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MVVMProjectView.Connection;
+using MVVMProjectView.Models;
+using MVVMProjectView.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,44 @@ namespace MVVMProjectView.Views
     /// </summary>
     public partial class CategoryView : UserControl
     {
+        ApiConnector connector = new ApiConnector();
+        List<Category> category = new List<Category>();
+
         public CategoryView()
         {
             InitializeComponent();
+
+            GetCategories();
+        }
+
+        private void GetCategories()
+        {
+            connector.ExtendLoginTime();
+            category = connector.Get_categories();
+            lv.ItemsSource = category;
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            connector.ExtendLoginTime();
+
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            connector.ExtendLoginTime();
+
+        }
+
+        private void Add_New_Click(object sender, RoutedEventArgs e)
+        {
+            connector.ExtendLoginTime();
+            StaticResources.mainWindow.DataContext = new NewCategoryView();
+        }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            GetCategories();
         }
     }
 }

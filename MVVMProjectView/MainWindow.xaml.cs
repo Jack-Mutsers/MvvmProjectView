@@ -28,23 +28,41 @@ namespace MVVMProjectView
         public MainWindow()
         {
             InitializeComponent();
-            API.mainWindow = this;
+            StaticResources.mainWindow = this;
             DataContext = new LoginViewModel();
-            menu.DataContext = API.resources;
+            menu.DataContext = StaticResources.resources;
         }
 
         private void StatusView_Clicked(object sender, MouseButtonEventArgs e)
         {
-            if (API.resources.LoggedIn)
+            if (StaticResources.resources.LoggedIn)
             {
                 DataContext = new StatusViewModel();
                 connection.ExtendLoginTime();
             }
         }
 
+        private void CategorieView_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            if (StaticResources.resources.LoggedIn)
+            {
+                DataContext = new CategoryViewModel();
+                connection.ExtendLoginTime();
+            }
+        }
+
+        private void ComponentView_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            if (StaticResources.resources.LoggedIn)
+            {
+                DataContext = new ComponentsViewModel();
+                connection.ExtendLoginTime();
+            }
+        }
+
         private void NewCategorie_Clicked(object sender, MouseButtonEventArgs e)
         {
-            if (API.resources.LoggedIn)
+            if (StaticResources.resources.LoggedIn)
             {
                 DataContext = new NewCategoryViewModel();
                 connection.ExtendLoginTime();
@@ -53,7 +71,7 @@ namespace MVVMProjectView
 
         private void NewComponent_Clicked(object sender, MouseButtonEventArgs e)
         {
-            if (API.resources.LoggedIn)
+            if (StaticResources.resources.LoggedIn)
             {
                 DataContext = new NewComponentsViewModel();
                 connection.ExtendLoginTime();
@@ -62,7 +80,7 @@ namespace MVVMProjectView
 
         private void NewUserView_Clicked(object sender, MouseButtonEventArgs e)
         {
-            if (API.resources.LoggedIn)
+            if (StaticResources.resources.LoggedIn)
             {
                 DataContext = new NewUserViewModel();
                 connection.ExtendLoginTime();
@@ -71,7 +89,7 @@ namespace MVVMProjectView
 
         private void ProfileView_Clicked(object sender, MouseButtonEventArgs e)
             {
-            if (API.resources.LoggedIn)
+            if (StaticResources.resources.LoggedIn)
             {
                 DataContext = new ProfileViewModel();
                 connection.ExtendLoginTime();
@@ -80,7 +98,7 @@ namespace MVVMProjectView
 
         private void Logout_Clicked(object sender, MouseButtonEventArgs e)
         {
-            if (API.resources.LoggedIn)
+            if (StaticResources.resources.LoggedIn)
             {
             }
         }

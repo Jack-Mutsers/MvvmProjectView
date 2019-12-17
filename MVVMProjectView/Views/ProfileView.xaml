@@ -2,23 +2,35 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MVVMProjectView.Views"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mvvmprojectview="clr-namespace:MVVMProjectView"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="400">
+             d:DesignHeight="450" Width="910">
     <Grid>
-        <Label Content="Account management" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="372" FontSize="36"/>
+        <Grid Margin="54,0,54,0" Width="785" VerticalAlignment="Top">
 
-        <Label Content="Change password" HorizontalAlignment="Left" Margin="99,84,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
-        <Label Content="new password:" HorizontalAlignment="Left" Margin="85,128,0,0" VerticalAlignment="Top"/>
-        <PasswordBox PasswordChanged="onPasswordChanged" HorizontalAlignment="Left" Height="23" Margin="178,131,0,0" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Account management" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="372" FontSize="36"/>
 
-        <Label Content="repeat password:" HorizontalAlignment="Left" Margin="73,166,0,0" VerticalAlignment="Top"/>
-        <PasswordBox  PasswordChanged="RePasswordBox_PasswordChanged" HorizontalAlignment="Left" Height="23" Margin="178,169,0,0" VerticalAlignment="Top" Width="120" KeyUp="Update_Password_KeyUp"/>
+            <Label Content="Change password" HorizontalAlignment="Left" Margin="48,74,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+            <Label Content="new password:" HorizontalAlignment="Left" Margin="34,118,0,0" VerticalAlignment="Top"/>
+            <PasswordBox Name="tbPassword" PasswordChanged="onPasswordChanged" HorizontalAlignment="Left" Height="23" Margin="127,121,0,0" VerticalAlignment="Top" Width="120"/>
 
-        <Button Content="update" HorizontalAlignment="Left" Margin="127,210,0,0" VerticalAlignment="Top" Width="103" Height="28" Click="Update_Password_Click"/>
+            <Label Content="repeat password:" HorizontalAlignment="Left" Margin="22,156,0,0" VerticalAlignment="Top"/>
+            <PasswordBox Name="tbPasswordConf" PasswordChanged="RePasswordBox_PasswordChanged" HorizontalAlignment="Left" Height="23" Margin="127,159,0,0" VerticalAlignment="Top" Width="120" KeyUp="Update_Password_KeyUp"/>
+            <Label Name="lblError" Content="{Binding UpdateError, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"  HorizontalAlignment="Left" Margin="262,156,0,0" VerticalAlignment="Top" FontSize="14" Foreground="Red" FontWeight="Bold"/>
+            <Label Name="lblMessage" Content="{Binding UpdateMessage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"  HorizontalAlignment="Left" Margin="262,156,0,0" VerticalAlignment="Top" FontSize="14" Foreground="Green" FontWeight="Bold"/>
 
-        <Button Content="delete account" HorizontalAlignment="Left" Margin="113,304,0,0" VerticalAlignment="Top" Width="143" Height="34" Click="Delete_Account_Click"/>
-        <Label Content="Remove Account" HorizontalAlignment="Left" Margin="99,260,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+            <mvvmprojectview:PasswordValidator 
+            Box1="{Binding ElementName=tbPassword}" 
+            Box2="{Binding ElementName=tbPasswordConf}" 
+        />
+
+            <Button Content="update" HorizontalAlignment="Left" Margin="76,200,0,0" VerticalAlignment="Top" Width="103" Height="28" Click="Update_Password_Click"/>
+
+            <Label Content="Remove Account" HorizontalAlignment="Left" Margin="48,250,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+            <Label Content="Note: admin account cannot be deleted"  HorizontalAlignment="Left" Margin="46,284,0,0" VerticalAlignment="Top" Foreground="DarkBlue" FontWeight="Bold" FontSize="10"/>
+            <Button Content="delete account" HorizontalAlignment="Left" Margin="62,316,0,0" VerticalAlignment="Top" Width="143" Height="34" Click="Delete_Account_Click"/>
+            <Label Name="DelError" Content="{Binding DeleteError, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"  HorizontalAlignment="Left" Margin="62,345,0,0" VerticalAlignment="Top" FontSize="14" Foreground="Red" FontWeight="Bold"/>
+        </Grid>
     </Grid>
 </UserControl>
