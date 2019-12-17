@@ -98,7 +98,6 @@ namespace MVVMProjectView.Views
             }
             catch (Exception ex)
             {
-
                 var exeption = ex;
                 return false;
             }

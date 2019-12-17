@@ -31,3 +31,4 @@ D:\programeren\grote_proftaat\MVVMProjectView\MVVMProjectView\obj\Debug\MVVMProj
 D:\programeren\grote_proftaat\MVVMProjectView\MVVMProjectView\obj\Debug\MVVMProjectView.csproj.CopyComplete
 D:\programeren\grote_proftaat\MVVMProjectView\MVVMProjectView\obj\Debug\MVVMProjectView.exe
 D:\programeren\grote_proftaat\MVVMProjectView\MVVMProjectView\obj\Debug\MVVMProjectView.pdb
+D:\programeren\grote_proftaat\MVVMProjectView\MVVMProjectView\obj\Debug\MVVMProjectView.csprojAssemblyReference.cache

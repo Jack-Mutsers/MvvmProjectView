@@ -59,6 +59,13 @@ namespace MVVMProjectView.Resources
             set { _CategoryName = value; OnPropertyChanged("CategoryName"); }
         }
 
+        private string _ComponentName = "";
+        public string ComponentName
+        {
+            get { return _ComponentName; }
+            set { _ComponentName = value; OnPropertyChanged("ComponentName"); }
+        }
+
         private string _NewCatMessage = "";
         public string NewCatMessage
         {
@@ -71,6 +78,20 @@ namespace MVVMProjectView.Resources
         {
             get { return _NewCatError; }
             set { _NewCatError = value; OnPropertyChanged("NewCatError"); }
+        }
+
+        private string _NewCompError = "";
+        public string NewCompError
+        {
+            get { return _NewCompError; }
+            set { _NewCompError = value; OnPropertyChanged("NewCompError"); }
+        }
+
+        private string _NewCompMessage = "";
+        public string NewCompMessage
+        {
+            get { return _NewCompMessage; }
+            set { _NewCompMessage = value; OnPropertyChanged("NewCompMessage"); }
         }
 
         //below is the boilerplate code supporting PropertyChanged events:

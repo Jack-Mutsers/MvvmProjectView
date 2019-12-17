@@ -101,6 +101,35 @@ namespace MVVMProjectView.Connection
             return false;
         }
 
+        public bool NewComponent(int id)
+        {
+            ExtendLoginTime();
+
+            var client = new RestClient("https://localhost:5001/api/component");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Connection", "keep-alive");
+            request.AddHeader("Content-Length", "75");
+            request.AddHeader("Accept-Encoding", "gzip, deflate");
+            request.AddHeader("Host", "localhost:5001");
+            request.AddHeader("Postman-Token", "f8825be5-6d50-440b-8a36-5d74bd8f4ad5,6aa963df-5b2b-4e34-8df5-53dcc4698ff2");
+            request.AddHeader("Cache-Control", "no-cache");
+            request.AddHeader("Accept", "*/*");
+            request.AddHeader("User-Agent", "PostmanRuntime/7.20.1");
+            request.AddHeader("ApiKey", StaticResources.ApiKey.ToString());
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("undefined", "{\r\n \"name\": \"" + StaticResources.resources.ComponentName + "\",\r\n \"categoryid\": " + id + ",\r\n \"alarm_status\": false\r\n}", ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+
+            ResponseValidation(response.StatusCode);
+            if (response.IsSuccessful)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public void ExtendLoginTime()
         {
 
