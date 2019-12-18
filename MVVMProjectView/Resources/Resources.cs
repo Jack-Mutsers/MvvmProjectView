@@ -24,7 +24,6 @@ namespace MVVMProjectView.Resources
             set { _NoteMessage = value; OnPropertyChanged("NoteMessage"); }
         }
 
-
         private bool _LoggedIn = false;
         public bool LoggedIn { 
             get { return _LoggedIn; }
@@ -111,6 +110,39 @@ namespace MVVMProjectView.Resources
             set { _NewCompMessage = value; OnPropertyChanged("NewCompMessage"); }
         }
 
+
+        private string _NewUserError = "";
+        public string NewUserError
+        {
+            get { return _NewUserError; }
+            set { _NewUserError = value; OnPropertyChanged("NewUserError"); }
+        }
+
+
+        private string _NewUserMessage = "";
+        public string NewUserMessage
+        {
+            get { return _NewUserMessage; }
+            set { _NewUserMessage = value; OnPropertyChanged("NewUserMessage"); }
+        }
+
+
+        public void ResetValues()
+        {
+            LoginMessage = "";
+            NoteMessage = "";
+            UpdateError = "";
+            DeleteMessage = "";
+            DeleteError = "";
+            CategoryName = "";
+            ComponentName = "";
+            NewCatMessage = "";
+            NewCatError = "";
+            NewCompError = "";
+            NewCompMessage = "";
+            NewUserError = "";
+            NewUserMessage = "";
+        }
 
         //below is the boilerplate code supporting PropertyChanged events:
         public event PropertyChangedEventHandler PropertyChanged;

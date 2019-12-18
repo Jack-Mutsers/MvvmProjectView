@@ -204,9 +204,10 @@ namespace MVVMProjectView.Connection
 
         private void ResponseValidation(HttpStatusCode response){
             if (response == HttpStatusCode.Unauthorized) {
-                StaticResources.mainWindow.DataContext = new LoginViewModel();
+                StaticResources.resources.ResetValues();
                 StaticResources.resources.LoggedIn = false;
                 StaticResources.resources.LoginMessage = "Session expired, Please log in again";
+                StaticResources.mainWindow.DataContext = new LoginViewModel();
             }
         }
 

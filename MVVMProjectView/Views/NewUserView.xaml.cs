@@ -29,6 +29,8 @@ namespace MVVMProjectView.Views
         {
             InitializeComponent();
             DataContext = user;
+            UserError.DataContext = StaticResources.resources;
+            UserMessage.DataContext = StaticResources.resources;
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
@@ -51,17 +53,20 @@ namespace MVVMProjectView.Views
 
                 if (succes)
                 {
-                    MessageBox.Show("user has been created", "creation status: succesfull", MessageBoxButton.OK);
+                    StaticResources.resources.NewUserError = "";
+                    StaticResources.resources.NewUserMessage = "user has been created";
                 }
                 else
                 {
-                    MessageBox.Show("an error occured while trying to create a new user", "creation status: failure", MessageBoxButton.OK);
+                    StaticResources.resources.NewUserMessage = "";
+                    StaticResources.resources.NewUserError = "an error occured while trying to create a new user";
                 }
             }
             catch (Exception ex)
             {
                 string useless = ex.ToString();
-                MessageBox.Show("an error occured while trying to create a new user", "creation status: failure", MessageBoxButton.OK);
+                StaticResources.resources.NewUserMessage = "";
+                StaticResources.resources.NewUserError = "an error occured while trying to create a new user";
             }
         }
 

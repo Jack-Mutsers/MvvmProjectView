@@ -57,8 +57,7 @@ namespace MVVMProjectView.Views
 
         private void login()
         {
-            StaticResources.resources.DeleteMessage = "";
-            StaticResources.resources.NoteMessage = "";
+            StaticResources.resources.ResetValues();
             try
             {
                 bool succes = false;

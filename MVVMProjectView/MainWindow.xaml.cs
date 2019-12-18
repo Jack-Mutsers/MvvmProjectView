@@ -37,6 +37,7 @@ namespace MVVMProjectView
         {
             if (StaticResources.resources.LoggedIn)
             {
+                StaticResources.resources.ResetValues();
                 DataContext = new StatusViewModel();
                 connection.ExtendLoginTime();
             }
@@ -46,6 +47,7 @@ namespace MVVMProjectView
         {
             if (StaticResources.resources.LoggedIn)
             {
+                StaticResources.resources.ResetValues();
                 DataContext = new CategoryViewModel();
                 connection.ExtendLoginTime();
             }
@@ -55,6 +57,7 @@ namespace MVVMProjectView
         {
             if (StaticResources.resources.LoggedIn)
             {
+                StaticResources.resources.ResetValues();
                 DataContext = new ComponentsViewModel();
                 connection.ExtendLoginTime();
             }
@@ -64,6 +67,7 @@ namespace MVVMProjectView
         {
             if (StaticResources.resources.LoggedIn)
             {
+                StaticResources.resources.ResetValues();
                 DataContext = new NewCategoryViewModel();
                 connection.ExtendLoginTime();
             }
@@ -73,6 +77,7 @@ namespace MVVMProjectView
         {
             if (StaticResources.resources.LoggedIn)
             {
+                StaticResources.resources.ResetValues();
                 DataContext = new NewComponentsViewModel();
                 connection.ExtendLoginTime();
             }
@@ -82,6 +87,7 @@ namespace MVVMProjectView
         {
             if (StaticResources.resources.LoggedIn)
             {
+                StaticResources.resources.ResetValues();
                 DataContext = new NewUserViewModel();
                 connection.ExtendLoginTime();
             }
@@ -91,6 +97,7 @@ namespace MVVMProjectView
             {
             if (StaticResources.resources.LoggedIn)
             {
+                StaticResources.resources.ResetValues();
                 DataContext = new ProfileViewModel();
                 connection.ExtendLoginTime();
             }
@@ -102,10 +109,9 @@ namespace MVVMProjectView
             {
                 if (connection.Logout())
                 {
-                    StaticResources.resources.LoginMessage = "";
-                    StaticResources.resources.DeleteMessage = "";
-                    StaticResources.resources.NoteMessage = "You have Logged out successfuly";
                     StaticResources.resources.LoggedIn = false;
+                    StaticResources.resources.ResetValues();
+                    StaticResources.resources.NoteMessage = "You have Logged out successfuly";
 
                     DataContext = new LoginViewModel();
                 }

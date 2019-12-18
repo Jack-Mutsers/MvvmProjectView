@@ -66,16 +66,7 @@
                         <Label Content="Category List" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </StackPanel>
                 </ListView>
-
-                <Separator Height="7" Visibility="Hidden"/>
-
-                <ListView IsEnabled="{Binding Path=LoggedIn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" MouseLeftButtonUp="ComponentView_Clicked">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Height="50" Width="50" />
-                        <Label Content="Component List" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </StackPanel>
-                </ListView>
-
+                
                 <Separator Height="7" Visibility="Hidden"/>
 
                 <ListView IsEnabled="{Binding Path=LoggedIn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" MouseLeftButtonUp="NewUserView_Clicked">

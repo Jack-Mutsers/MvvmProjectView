@@ -18,6 +18,10 @@
             <PasswordBox x:Name="pwBox" PasswordChanged="PasswordBox_PasswordChanged" HorizontalAlignment="Left" Margin="119,126,0,0" VerticalAlignment="Top" Width="120" Height="23"/>
 
             <Button Content="Create" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="137,167,0,0" Click="BtnCreate_Click"/>
+
+            <Label Name="UserError" Content="{Binding NewUserError, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"  HorizontalAlignment="Left" Margin="261,126,0,0" VerticalAlignment="Top" FontSize="12" Foreground="Red" FontWeight="Bold"/>
+            <Label Name="UserMessage" Content="{Binding NewUserMessage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"  HorizontalAlignment="Left" Margin="261,126,0,0" VerticalAlignment="Top" FontSize="12" Foreground="Green" FontWeight="Bold"/>
+
         </Grid>
     </Grid>
 </UserControl>
