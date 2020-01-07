@@ -15,7 +15,7 @@
                     <StackPanel Orientation="Horizontal">
 
                         <Border CornerRadius="3" BorderBrush="Black" BorderThickness="1" Background="{Binding stateBackGround, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="70">
-
+                            <Image Height="100" Width="70" Source="{Binding icon}" />
                         </Border>
                         <Separator Visibility="Hidden" Width="46"/>
                         <Label VerticalAlignment="Center" Content="{Binding name}" FontSize="36" Margin="0,20" Width="430"/>

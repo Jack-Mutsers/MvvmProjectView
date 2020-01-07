@@ -14,8 +14,8 @@
                 <Separator Visibility="Hidden" />
                 <Border CornerRadius="5" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="752">
                     <StackPanel Orientation="Horizontal">
-
-                        <Label VerticalAlignment="Center" Content="{Binding name}" FontSize="36" Margin="0,20" Width="479"/>
+                        <Image VerticalAlignment="Center" Width="85" Height="100" Source="{Binding category.icon, UpdateSourceTrigger=PropertyChanged}" />
+                        <Label VerticalAlignment="Center" Content="{Binding name}" FontSize="36" Margin="0,20" Width="394"/>
                         <StackPanel>
                             <Separator Visibility="Hidden" />
                             <Button Click="Execute_Click" Tag="{Binding id}" Content="{Binding btnState, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="115" Height="40"/>
@@ -52,8 +52,11 @@
         </Grid>
 
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Width="785" Height="32" Margin="54,102,54,0">
-            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="460">
-                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"><Run Text="component "/><Run Text="name"/></TextBlock>
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="85">
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Text="Icon" FontSize="18" FontWeight="Bold"/>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="375">
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"><Run Text="Component "/><Run Text="name"/></TextBlock>
             </Border>
             <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="170">
                 <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Text="Actions" FontSize="18" FontWeight="Bold"/>

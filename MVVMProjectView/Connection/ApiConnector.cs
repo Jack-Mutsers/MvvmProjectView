@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -27,10 +28,33 @@ namespace MVVMProjectView.Connection
             ResponseValidation(response.StatusCode);
 
             string responseContent = response.Content.Replace("\"", "'");
+            
+            if (response.IsSuccessful)
+            {
+                List<PreCategory> jsonResponse = JsonConvert.DeserializeObject<List<PreCategory>>(responseContent);
 
-            List<Category> jsonResponse = JsonConvert.DeserializeObject<List<Category>>(responseContent);
+                List<Category> CategoryList = new List<Category>();
+                foreach (PreCategory row in jsonResponse)
+                {
+                    Category category = new Category();
+                    category.id = row.id;
+                    category.name = row.name;
+                    category.Components = row.Components;
 
-            return jsonResponse;
+                    if (row.icon != "")
+                    {
+                        byte[] byteArray = StaticResources.StringToByteArray(row.icon);
+
+                        category.icon = StaticResources.resources.byteToImage(byteArray);
+                    }
+
+                    CategoryList.Add(category);
+                }
+
+                return CategoryList;
+            }
+
+            return null;
         }
 
         public bool Login(string username, string password)
@@ -67,7 +91,7 @@ namespace MVVMProjectView.Connection
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Content-Type", "application/json");
             request.AddHeader("ApiKey", StaticResources.ApiKey.ToString());
-            request.AddParameter("undefined", "{\n \"username\": \"" + user.username + "\",\n \"password\": \"" + user.password + "\"\n}", ParameterType.RequestBody); ;
+            request.AddParameter("undefined", "{\n \"username\": \"" + user.username + "\",\n \"password\": \"" + user.password + "\"\n}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
 
             ResponseValidation(response.StatusCode);
@@ -83,13 +107,17 @@ namespace MVVMProjectView.Connection
         {
             ExtendLoginTime();
 
+            byte[] byteArray = StaticResources.resources.ByteImage;
+            var StringImage = StaticResources.ByteArrayToString(byteArray);
+
             var client = new RestClient("https://localhost:5001/api/category");
             var request = new RestRequest(Method.POST);
             request.AddHeader("Postman-Token", "f1e620dc-11b2-4f4b-937d-308a20c058d1");
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("ApiKey", StaticResources.ApiKey.ToString());
             request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("undefined", "{\n    \"name\": \"" + StaticResources.resources.CategoryName + "\"\n}", ParameterType.RequestBody);
+            request.AddParameter("undefined", "{\n \"name\": \"" + StaticResources.resources.CategoryName + "\",\n \"icon\": \"" + StringImage + "\"\n}", ParameterType.RequestBody);
+
             IRestResponse response = client.Execute(request);
             
             ResponseValidation(response.StatusCode);
@@ -118,7 +146,23 @@ namespace MVVMProjectView.Connection
             request.AddHeader("User-Agent", "PostmanRuntime/7.20.1");
             request.AddHeader("ApiKey", StaticResources.ApiKey.ToString());
             request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("undefined", "{\r\n \"name\": \"" + StaticResources.resources.ComponentName + "\",\r\n \"categoryid\": " + id + ",\r\n \"alarm_status\": false\r\n}", ParameterType.RequestBody);
+
+
+
+            List<string> ParamArr = new List<string>();
+            ParamArr.Add("\r\n \"name\": \"" + StaticResources.resources.ComponentName + "\"");
+            ParamArr.Add("\r\n \"categoryid\": " + id);
+            ParamArr.Add("\r\n \"alarm_status\": false");
+            ParamArr.Add("\r\n \"ip_adress\": \"" + StaticResources.resources.ComponentIp + "\"");
+
+            // "{\r\n \"name\": \"test\",\r\n \"categoryid\": 1,\r\n \"alarm_status\": false,\r\n \"ip_adress\": \"asdf\"\r\n}"
+            // "{\r\n \"name\": \"test\",\r\n \"categoryid\": 1,\r\n \"alarm_status\": false,\r\n \"ip_adress\": \"asdf\"\r\n}"
+
+            string param = "{" + String.Join(",", ParamArr) + "\r\n}";
+            request.AddParameter("undefined", param, ParameterType.RequestBody);
+
+
+            //request.AddParameter("undefined", "{\r\n \"name\": \"" + StaticResources.resources.ComponentName + "\",\r\n \"categoryid\": " + id + ",\r\n \"alarm_status\": false\r\n}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
 
             ResponseValidation(response.StatusCode);

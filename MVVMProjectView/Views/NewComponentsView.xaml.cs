@@ -30,6 +30,7 @@ namespace MVVMProjectView.Views
             InitializeComponent();
             UpdateContent();
             tbNewComp.DataContext = StaticResources.resources;
+            tbNewCompIp.DataContext = StaticResources.resources;
             CompError.DataContext = StaticResources.resources;
             CompMessage.DataContext = StaticResources.resources;
         }
@@ -76,6 +77,7 @@ namespace MVVMProjectView.Views
                 StaticResources.resources.NewCompError = "";
                 StaticResources.resources.NewCompMessage = "Component has been succesfully added";
                 StaticResources.resources.ComponentName = "";
+                StaticResources.resources.ComponentIp = "";
             }
             else
             {

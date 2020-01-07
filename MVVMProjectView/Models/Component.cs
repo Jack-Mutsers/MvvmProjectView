@@ -12,7 +12,11 @@ namespace MVVMProjectView.Models
         public int id { get; set; }
         public string name { get; set; }
         public int categoryid { get; set; }
+        public int value { get; set; }
+        public string ip_adress { get; set; }
+        public int arduino_id { get; set; }
         public bool status { get; set; }
+        public Category category { get; set; } = new Category();
 
         public string btnState
         {

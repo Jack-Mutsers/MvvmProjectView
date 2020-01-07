@@ -89,6 +89,12 @@ namespace MVVMProjectView.Views
                     components = components.OrderByDescending(comp => comp.status).ToList();
                 }
 
+                foreach(Component comp in components){
+                    Category cat = CategorieList.Find(x => x.id == comp.categoryid);
+
+                    comp.category = cat;
+                }
+
                 lv.ItemsSource = components;
             }
         }

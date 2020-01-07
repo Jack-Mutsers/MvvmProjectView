@@ -15,7 +15,9 @@
             <TextBox x:Name="tbNewCat" Text="{Binding CategoryName}" HorizontalAlignment="Left" Height="23" Margin="143,110,0,0" VerticalAlignment="Top" Width="150" KeyUp="Add_New_KeyUp"/>
 
             <Label Content="Category Icon:" HorizontalAlignment="Left" Margin="45,145,0,0" VerticalAlignment="Top"/>
-            <ComboBox Height="40" Width="60" Margin="143,138,582,40"/>
+            <Button Content="upload" Height="40" Width="60" Margin="143,138,582,40" Click="Button_Click" />
+
+            <Image x:Name="imgIcon" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding ConvertedImage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="235,138,0,0" />
 
             <Button Content="Create" HorizontalAlignment="Left" Margin="143,198,0,0" VerticalAlignment="Top" Width="75" Click="Add_New_Click"/>
 
