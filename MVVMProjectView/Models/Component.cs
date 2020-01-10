@@ -20,17 +20,17 @@ namespace MVVMProjectView.Models
 
         public string btnState
         {
-            get { return status ? "close" : "open"; }
+            get { return value > 0 ? "close" : "open"; }
         }
 
         public Brush stateBackGround
         {
-            get { return status ? Brushes.Red : Brushes.Green; }
+            get { return value > 0 ? Brushes.Red : Brushes.Green; }
         }
 
         public string stateText
         {
-            get { return status ? "open" : "close"; }
+            get { return value > 0 ? "open" : "close"; }
         }
     }
 }

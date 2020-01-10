@@ -30,11 +30,30 @@ namespace MVVMProjectView.Views
 
         public NewCategoryView()
         {
+            default_statup();
+            StaticResources.resources.newCategoryHeader = "Add new category";
+            StaticResources.resources.updateCreateName = "Create";
+        }
+
+        public NewCategoryView(Category cat)
+        {
+            default_statup();
+            StaticResources.resources.category = cat;
+
+            StaticResources.resources.newCategoryHeader = "Update category";
+            StaticResources.resources.updateCreateName = "Update";
+
+        }
+
+        private void default_statup()
+        {
             InitializeComponent();
             tbNewCat.DataContext = StaticResources.resources;
             CatError.DataContext = StaticResources.resources;
             CatMessage.DataContext = StaticResources.resources;
             imgIcon.DataContext = StaticResources.resources;
+            lblTitle.DataContext = StaticResources.resources;
+            btnSet.DataContext = StaticResources.resources;
         }
 
         private void Add_New_KeyUp(object sender, KeyEventArgs e)
@@ -53,17 +72,36 @@ namespace MVVMProjectView.Views
 
         private void AddNewCategory()
         {
-            if (connector.NewCategory())
+            bool succes;
+            if (StaticResources.resources.category.id > 0)
             {
-                StaticResources.resources.NewCatError = "";
-                StaticResources.resources.NewCatMessage = "Category has been succesfully added";
-                StaticResources.resources.CategoryName = "";
-                StaticResources.resources.ConvertedImage = null;
+                succes = connector.UpdateCategory(StaticResources.resources.category);
+                if (succes)
+                {
+                    StaticResources.resources.NewCatError = "";
+                    StaticResources.resources.NewCatMessage = "Category has been succesfully updated";
+                }
+                else
+                {
+                    StaticResources.resources.NewCatMessage = "";
+                    StaticResources.resources.NewCatError = "An error occured, Category has not been updated";
+                }
             }
             else
             {
-                StaticResources.resources.NewCatMessage = "";
-                StaticResources.resources.NewCatError = "An error occured, Category has not been added";
+                succes = connector.NewCategory(StaticResources.resources.category);
+                if (succes)
+                {
+                    StaticResources.resources.NewCatError = "";
+                    StaticResources.resources.NewCatMessage = "Category has been succesfully added";
+                    StaticResources.resources.category = new Category();
+                    StaticResources.resources.ConvertedImage = null;
+                }
+                else
+                {
+                    StaticResources.resources.NewCatMessage = "";
+                    StaticResources.resources.NewCatError = "An error occured, Category has not been added";
+                }
             }
         }
         

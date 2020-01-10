@@ -8,20 +8,21 @@
              d:DesignHeight="450" d:DesignWidth="910">
     <Grid>
         <Grid Margin="62,0" Width="785" VerticalAlignment="Top" Height="251">
-            <Label Content="Add new component" HorizontalAlignment="Left" VerticalAlignment="Top" Width="372" FontSize="36"/>
+            <Label Name="lblTitle" Content="{Binding newComponentHeader, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="372" FontSize="36"/>
 
             <Label Content="Component name:" HorizontalAlignment="Left" Margin="27,110,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="tbNewComp" Text="{Binding ComponentName}" HorizontalAlignment="Left" Height="23" Margin="143,110,0,0" VerticalAlignment="Top" Width="150"/>
+            <TextBox x:Name="tbNewComp" Text="{Binding component.name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="143,110,0,0" VerticalAlignment="Top" Width="150"/>
 
             <Label Content="categorie:" HorizontalAlignment="Left" Margin="73,145,0,0" VerticalAlignment="Top"/>
             <ComboBox x:Name="cbCategory" DisplayMemberPath="name" Height="26" Width="150" Margin="143,145,492,80"/>
 
-            <Button Content="Create" HorizontalAlignment="Left" Margin="143,221,0,0" VerticalAlignment="Top" Width="75" Click="Add_New_Click"/>
+            <Button Name="btnSet" Content="{Binding updateCreateName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="143,221,0,0" VerticalAlignment="Top" Width="75" Click="Add_New_Click"/>
+            <Button Name="btnDel" Visibility="{Binding deleteButtonVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Content="Delete" HorizontalAlignment="Left" Margin="233,221,0,0" VerticalAlignment="Top" Width="75" Click="Delete_Click"/>
 
             <Label Name="CompError" Content="{Binding NewCompError, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"  HorizontalAlignment="Left" Margin="143,76,0,0" VerticalAlignment="Top" FontSize="12" Foreground="Red" FontWeight="Bold"/>
             <Label Name="CompMessage" Content="{Binding NewCompMessage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"  HorizontalAlignment="Left" Margin="143,76,0,0" VerticalAlignment="Top" FontSize="12" Foreground="Green" FontWeight="Bold"/>
             <Label Content="Arduino IP Adress:" HorizontalAlignment="Left" Margin="27,184,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="tbNewCompIp" Text="{Binding ComponentIp}" HorizontalAlignment="Left" Height="23" Margin="143,184,0,0" VerticalAlignment="Top" Width="150"/>
+            <TextBox x:Name="tbNewCompIp" Text="{Binding component.ip_adress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="143,184,0,0" VerticalAlignment="Top" Width="150"/>
 
         </Grid>
     </Grid>

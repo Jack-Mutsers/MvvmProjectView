@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using MVVMProjectView.Models;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -65,28 +66,49 @@ namespace MVVMProjectView.Resources
         }
 
 
-        private string _CategoryName = "";
-        public string CategoryName
+        private Models.Component _component { get; set; } = new Models.Component();
+        public Models.Component component
         {
-            get { return _CategoryName; }
-            set { _CategoryName = value; OnPropertyChanged("CategoryName"); }
+            get { return _component; }
+            set { _component = value; OnPropertyChanged("component"); }
         }
 
 
-        private string _ComponentName = "";
-        public string ComponentName
+        private string _newComponentHeader = "";
+        public string newComponentHeader
         {
-            get { return _ComponentName; }
-            set { _ComponentName = value; OnPropertyChanged("ComponentName"); }
+            get { return _newComponentHeader; }
+            set { _newComponentHeader = value; OnPropertyChanged("newComponentHeader"); }
         }
 
-        private string _ComponentIp = "";
-        public string ComponentIp
+        private string _updateCreateName = "";
+        public string updateCreateName
         {
-            get { return _ComponentIp; }
-            set { _ComponentIp = value; OnPropertyChanged("ComponentIp"); }
+            get { return _updateCreateName; }
+            set { _updateCreateName = value; OnPropertyChanged("updateCreateName"); }
         }
 
+        private Visibility _deleteButtonVisibility = Visibility.Hidden;
+        public Visibility deleteButtonVisibility
+        {
+            get { return _deleteButtonVisibility; }
+            set { _deleteButtonVisibility = value; OnPropertyChanged("deleteButtonVisibility"); }
+        }
+
+
+        private Category _category = new Category();
+        public Category category
+        {
+            get { return _category; }
+            set { _category = value; OnPropertyChanged("category"); }
+        }
+
+        private string _newCategoryHeader = "";
+        public string newCategoryHeader
+        {
+            get { return _newCategoryHeader; }
+            set { _newCategoryHeader = value; OnPropertyChanged("newCategoryHeader"); }
+        }
 
         private string _NewCatMessage = "";
         public string NewCatMessage
@@ -147,37 +169,37 @@ namespace MVVMProjectView.Resources
         }
 
 
-        private BitmapImage _ConvertedImage;
         public BitmapImage ConvertedImage
         {
-            get { return _ConvertedImage; }
+            get { return category.icon; }
             set
             {
-                _ConvertedImage = value;
+                category.icon = value;
                 OnPropertyChanged("ConvertedImage");
-                ImageToByte();
+                ByteImage = ImageToByte(ConvertedImage);
             }
         }
 
 
-        public void ImageToByte()
+        public byte[] ImageToByte(BitmapImage image = null)
         {
-            if (ConvertedImage == null) 
+            if (image == null) 
             { 
-                ByteImage = new byte[0]; 
+                return new byte[0]; 
             } 
             else
             {
                 byte[] data;
                 JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(ConvertedImage));
+                encoder.Frames.Add(BitmapFrame.Create(image));
                 using (MemoryStream ms = new MemoryStream())
                 {
                     encoder.Save(ms);
                     data = ms.ToArray();
                 }
 
-                ByteImage = data;
+                //ByteImage = data;
+                return data;
             }
         }
 
@@ -207,9 +229,7 @@ namespace MVVMProjectView.Resources
             UpdateError = "";
             DeleteMessage = "";
             DeleteError = "";
-            CategoryName = "";
-            ComponentName = "";
-            ComponentIp = "";
+            component = new Models.Component();
             NewCatMessage = "";
             NewCatError = "";
             NewCompError = "";

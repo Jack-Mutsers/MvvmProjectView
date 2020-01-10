@@ -21,6 +21,7 @@ namespace MVVMProjectView.Resources
         }
 
         public static Guid ApiKey { get; set; } = Guid.Empty;
+        public static string extention { get; } = "$Y.N3T~J*";
         public static User UserData { get; set; } = new User();
         public static Category CategorieData { get; set; } = new Category();
         public static string ByteArrayToString(byte[] ba)

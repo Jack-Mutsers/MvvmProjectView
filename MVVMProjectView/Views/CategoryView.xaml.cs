@@ -43,13 +43,21 @@ namespace MVVMProjectView.Views
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             connector.ExtendLoginTime();
+            string identifier = (sender as Button).Tag.ToString();
 
+            if (connector.DeleteCategory(int.Parse(identifier)))
+            {
+                StaticResources.mainWindow.DataContext = new CategoryView();
+            }
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             connector.ExtendLoginTime();
+            string identifier = (sender as Button).Tag.ToString();
 
+            Category cat = category.Find(c => c.id == int.Parse(identifier));
+            StaticResources.mainWindow.DataContext = new NewCategoryView(cat);
         }
 
         private void Add_New_Click(object sender, RoutedEventArgs e)

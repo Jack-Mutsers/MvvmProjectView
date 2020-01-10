@@ -25,7 +25,30 @@ namespace MVVMProjectView.Views
     {
         ApiConnector connector = new ApiConnector();
         List<Category> CategoryList;
+
         public NewComponentsView()
+        {
+            default_statup();
+
+            StaticResources.resources.deleteButtonVisibility = Visibility.Hidden;
+            StaticResources.resources.newComponentHeader = "Add new component";
+            StaticResources.resources.updateCreateName = "Create";
+        }
+        
+        public NewComponentsView(Component comp)
+        {
+            default_statup();
+            StaticResources.resources.component = comp;
+            StaticResources.resources.deleteButtonVisibility = Visibility.Visible;
+
+            StaticResources.resources.newComponentHeader = "Update component";
+            StaticResources.resources.updateCreateName = "Update";
+
+            Category selected = CategoryList.Find(cat => cat.id == comp.categoryid);
+            cbCategory.SelectedIndex = CategoryList.FindIndex(cat => cat.id == selected.id);
+        }
+
+        private void default_statup()
         {
             InitializeComponent();
             UpdateContent();
@@ -33,7 +56,11 @@ namespace MVVMProjectView.Views
             tbNewCompIp.DataContext = StaticResources.resources;
             CompError.DataContext = StaticResources.resources;
             CompMessage.DataContext = StaticResources.resources;
+            lblTitle.DataContext = StaticResources.resources;
+            btnSet.DataContext = StaticResources.resources;
+            btnDel.DataContext = StaticResources.resources;
         }
+
 
         private void UpdateContent()
         {
@@ -72,19 +99,50 @@ namespace MVVMProjectView.Views
             int index = cbCategory.SelectedIndex;
             Category cat = CategoryList[index];
 
-            if (connector.NewComponent(cat.id))
+            StaticResources.resources.component.categoryid = cat.id;
+
+            bool succes = false;
+            if (StaticResources.resources.component.id > 0)
             {
-                StaticResources.resources.NewCompError = "";
-                StaticResources.resources.NewCompMessage = "Component has been succesfully added";
-                StaticResources.resources.ComponentName = "";
-                StaticResources.resources.ComponentIp = "";
+                succes = connector.UpdateComponent(StaticResources.resources.component);
+                if (succes)
+                {
+                    StaticResources.resources.NewCompError = "";
+                    StaticResources.resources.NewCompMessage = "Component has been succesfully updated";
+                    StaticResources.resources.component = new Component();
+                    StaticResources.mainWindow.DataContext = new StatusView();
+                }
+                else
+                {
+                    StaticResources.resources.NewCompMessage = "";
+                    StaticResources.resources.NewCompError = "An error occured, Component has not been updated";
+                }
             }
             else
             {
-                StaticResources.resources.NewCompMessage = "";
-                StaticResources.resources.NewCompError = "An error occured, Component has not been added";
+                succes = connector.NewComponent(StaticResources.resources.component);
+                if (succes)
+                {
+                    StaticResources.resources.NewCompError = "";
+                    StaticResources.resources.NewCompMessage = "Component has been succesfully added";
+                    StaticResources.resources.component = new Component();
+                }
+                else
+                {
+                    StaticResources.resources.NewCompMessage = "";
+                    StaticResources.resources.NewCompError = "An error occured, Component has not been added";
+                }
             }
+
+            
         }
 
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (connector.DeleteComponent(StaticResources.resources.component))
+            {
+                StaticResources.mainWindow.DataContext = new StatusView();
+            }
+        }
     }
 }

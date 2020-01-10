@@ -32,3 +32,6 @@ D:\programeren\grote_proftaat\MVVMProjectView\MVVMProjectView\obj\Debug\MVVMProj
 D:\programeren\grote_proftaat\MVVMProjectView\MVVMProjectView\obj\Debug\MVVMProjectView.exe
 D:\programeren\grote_proftaat\MVVMProjectView\MVVMProjectView\obj\Debug\MVVMProjectView.pdb
 D:\programeren\grote_proftaat\MVVMProjectView\MVVMProjectView\obj\Debug\MVVMProjectView.csprojAssemblyReference.cache
+D:\programeren\grote_proftaat\MVVMProjectView\MVVMProjectView\bin\Debug\BCrypt.Net.dll
+D:\programeren\grote_proftaat\MVVMProjectView\MVVMProjectView\bin\Debug\BCrypt.Net.pdb
+D:\programeren\grote_proftaat\MVVMProjectView\MVVMProjectView\bin\Debug\BCrypt.Net.xml

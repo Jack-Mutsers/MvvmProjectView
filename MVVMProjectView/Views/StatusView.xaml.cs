@@ -82,11 +82,11 @@ namespace MVVMProjectView.Views
 
                 if (statusIndex == 1)
                 {
-                    components = components.OrderBy(comp => comp.status).ThenBy(n => n.name).ToList();
+                    components = components.OrderBy(comp => comp.value).ThenBy(n => n.name).ToList();
                 }
                 else
                 {
-                    components = components.OrderByDescending(comp => comp.status).ToList();
+                    components = components.OrderByDescending(comp => comp.value).ToList();
                 }
 
                 foreach(Component comp in components){
@@ -137,12 +137,15 @@ namespace MVVMProjectView.Views
         {
             connector.ExtendLoginTime();
             string identifier = (sender as Button).Tag.ToString();
+            connector.SendArduinoCall(identifier);
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             connector.ExtendLoginTime();
             string identifier = (sender as Button).Tag.ToString();
+            Component component = components.Find(comp => comp.id == int.Parse(identifier));
+            StaticResources.mainWindow.DataContext = new NewComponentsView(component);
         }
     }
 }

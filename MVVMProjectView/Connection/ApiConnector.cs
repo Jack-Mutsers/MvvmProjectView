@@ -27,10 +27,11 @@ namespace MVVMProjectView.Connection
 
             ResponseValidation(response.StatusCode);
 
-            string responseContent = response.Content.Replace("\"", "'");
-            
+
+            string responseContent = "";
             if (response.IsSuccessful)
             {
+                responseContent = response.Content.Replace("\"", "'");
                 List<PreCategory> jsonResponse = JsonConvert.DeserializeObject<List<PreCategory>>(responseContent);
 
                 List<Category> CategoryList = new List<Category>();
@@ -54,6 +55,7 @@ namespace MVVMProjectView.Connection
                 return CategoryList;
             }
 
+            var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
             return null;
         }
 
@@ -67,10 +69,10 @@ namespace MVVMProjectView.Connection
             request.AddParameter("undefined", "{\n \"username\": \"" + username + "\",\n \"password\": \"" + password + "\"\n}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
 
-            string responseContent = response.Content.Replace("\"", "'");
-
+            string responseContent = "";
             if (response.IsSuccessful)
             {
+                responseContent = response.Content.Replace("\"", "'");
                 var jsonResponse = JsonConvert.DeserializeObject<Validation>(responseContent);
 
                 StaticResources.ApiKey = jsonResponse.access_token;
@@ -78,12 +80,24 @@ namespace MVVMProjectView.Connection
                 return true;
             }
 
+            var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
             return false;
         }
 
         public bool NewUser(User user)
         {
             ExtendLoginTime();
+
+            string sPassword = user.password;
+
+            //het aanmaken van een salt
+            string salt = BCrypt.Net.BCrypt.GenerateSalt();
+
+            sPassword = sPassword + StaticResources.extention;
+
+            // hash and save a password
+            user.password = BCrypt.Net.BCrypt.HashPassword(sPassword, salt);
+
 
             var client = new RestClient("https://localhost:5001/api/user");
             var request = new RestRequest(Method.POST);
@@ -100,10 +114,11 @@ namespace MVVMProjectView.Connection
                 return true;
             }
 
+            var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
             return false;
         }
 
-        public bool NewCategory()
+        public bool NewCategory(Category cat)
         {
             ExtendLoginTime();
 
@@ -116,20 +131,21 @@ namespace MVVMProjectView.Connection
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("ApiKey", StaticResources.ApiKey.ToString());
             request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("undefined", "{\n \"name\": \"" + StaticResources.resources.CategoryName + "\",\n \"icon\": \"" + StringImage + "\"\n}", ParameterType.RequestBody);
+            request.AddParameter("undefined", "{\n \"name\": \"" + cat.name + "\",\n \"icon\": \"" + StringImage + "\"\n}", ParameterType.RequestBody);
 
             IRestResponse response = client.Execute(request);
-            
+
             ResponseValidation(response.StatusCode);
             if (response.IsSuccessful)
             {
                 return true;
             }
 
+            var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
             return false;
         }
 
-        public bool NewComponent(int id)
+        public bool NewComponent(Component comp)
         {
             ExtendLoginTime();
 
@@ -147,16 +163,11 @@ namespace MVVMProjectView.Connection
             request.AddHeader("ApiKey", StaticResources.ApiKey.ToString());
             request.AddHeader("Content-Type", "application/json");
 
-
-
             List<string> ParamArr = new List<string>();
-            ParamArr.Add("\r\n \"name\": \"" + StaticResources.resources.ComponentName + "\"");
-            ParamArr.Add("\r\n \"categoryid\": " + id);
+            ParamArr.Add("\r\n \"name\": \"" + comp.name + "\"");
+            ParamArr.Add("\r\n \"categoryid\": " + comp.categoryid);
             ParamArr.Add("\r\n \"alarm_status\": false");
-            ParamArr.Add("\r\n \"ip_adress\": \"" + StaticResources.resources.ComponentIp + "\"");
-
-            // "{\r\n \"name\": \"test\",\r\n \"categoryid\": 1,\r\n \"alarm_status\": false,\r\n \"ip_adress\": \"asdf\"\r\n}"
-            // "{\r\n \"name\": \"test\",\r\n \"categoryid\": 1,\r\n \"alarm_status\": false,\r\n \"ip_adress\": \"asdf\"\r\n}"
+            ParamArr.Add("\r\n \"ip_adress\": \"" + comp.ip_adress + "\"");
 
             string param = "{" + String.Join(",", ParamArr) + "\r\n}";
             request.AddParameter("undefined", param, ParameterType.RequestBody);
@@ -171,18 +182,112 @@ namespace MVVMProjectView.Connection
                 return true;
             }
 
+            var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
             return false;
         }
 
         public void ExtendLoginTime()
         {
+            var client = new RestClient("https://localhost:5001/api/user/extend");
 
+            var request = new RestRequest(Method.PUT);
+            request.AddHeader("Postman-Token", "efcb9d6f-2cab-42ba-82de-6cd5aa0159b5");
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("ApiKey", StaticResources.ApiKey.ToString());
+
+            List<string> ParamArr = new List<string>();
+            ParamArr.Add("\r\n \"access_token\": \"" + StaticResources.ApiKey.ToString() + "\"");
+
+            string param = "{" + String.Join(",", ParamArr) + "\r\n}";
+            request.AddParameter("undefined", param, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+
+        }
+
+        public bool UpdateCategory(Category cat)
+        {
+            ExtendLoginTime();
+
+            byte[] byteArray = StaticResources.resources.ImageToByte(cat.icon);
+            var StringImage = StaticResources.ByteArrayToString(byteArray);
+
+            var client = new RestClient("https://localhost:5001/api/category");
+            var request = new RestRequest(Method.PUT);
+            request.AddHeader("Postman-Token", "efcb9d6f-2cab-42ba-82de-6cd5aa0159b5");
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("ApiKey", StaticResources.ApiKey.ToString());
+
+            List<string> ParamArr = new List<string>();
+            ParamArr.Add("\r\n \"id\": " + cat.id);
+            ParamArr.Add("\r\n \"name\": \"" + cat.name + "\"");
+            ParamArr.Add("\r\n \"icon\": \"" + StringImage + "\"");
+
+            string param = "{" + String.Join(",", ParamArr) + "\r\n}";
+            request.AddParameter("undefined", param, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+
+            ResponseValidation(response.StatusCode);
+
+            if (response.IsSuccessful)
+            {
+                return true;
+            }
+
+            var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
+            return false;
+        }
+
+        public bool UpdateComponent(Component comp)
+        {
+            ExtendLoginTime();
+
+            var client = new RestClient("https://localhost:5001/api/component");
+            var request = new RestRequest(Method.PUT);
+            request.AddHeader("Postman-Token", "efcb9d6f-2cab-42ba-82de-6cd5aa0159b5");
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("ApiKey", StaticResources.ApiKey.ToString());
+
+            List<string> ParamArr = new List<string>();
+            ParamArr.Add("\r\n \"id\": " + comp.id);
+            ParamArr.Add("\r\n \"name\": \"" + comp.name + "\"");
+            ParamArr.Add("\r\n \"categoryid\": " + comp.categoryid);
+            ParamArr.Add("\r\n \"value\": " + comp.value);
+            ParamArr.Add("\r\n \"ip_adress\": \"" + comp.ip_adress + "\"");
+            ParamArr.Add("\r\n \"arduino_id\": " + comp.arduino_id);
+            ParamArr.Add("\r\n \"status\": " + comp.status.ToString().ToLower());
+
+            string param = "{" + String.Join(",", ParamArr) + "\r\n}";
+            request.AddParameter("undefined", param, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+
+            ResponseValidation(response.StatusCode);
+
+            if (response.IsSuccessful)
+            {
+                return true;
+            }
+
+            var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
+            return false;
         }
 
         public bool UpdateUser(User user)
         {
 
             ExtendLoginTime();
+
+            string sPassword = user.password;
+
+            //het aanmaken van een salt
+            string salt = BCrypt.Net.BCrypt.GenerateSalt();
+
+            sPassword = sPassword + StaticResources.extention;
+
+            // hash and save a password
+            user.password = BCrypt.Net.BCrypt.HashPassword(sPassword, salt);
 
             var client = new RestClient("https://localhost:5001/api/user");
             var request = new RestRequest(Method.PUT);
@@ -199,9 +304,56 @@ namespace MVVMProjectView.Connection
                 return true;
             }
 
+            var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
             return false;
         }
 
+        public bool DeleteComponent(Component comp)
+        {
+            ExtendLoginTime();
+
+            var client = new RestClient("https://localhost:5001/api/component/" + comp.id);
+            var request = new RestRequest(Method.DELETE);
+            request.AddHeader("Postman-Token", "efcb9d6f-2cab-42ba-82de-6cd5aa0159b5");
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("ApiKey", StaticResources.ApiKey.ToString());
+            IRestResponse response = client.Execute(request);
+
+            ResponseValidation(response.StatusCode);
+            if (response.IsSuccessful)
+            {
+                return true;
+            }
+
+            var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
+            return false;
+
+        }
+
+        public bool DeleteCategory(int id)
+        {
+            ExtendLoginTime();
+
+            var client = new RestClient("https://localhost:5001/api/category/" + id);
+            var request = new RestRequest(Method.DELETE);
+            request.AddHeader("Postman-Token", "efcb9d6f-2cab-42ba-82de-6cd5aa0159b5");
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("ApiKey", StaticResources.ApiKey.ToString());
+            IRestResponse response = client.Execute(request);
+
+            ResponseValidation(response.StatusCode);
+            if (response.IsSuccessful)
+            {
+                return true;
+            }
+
+            var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
+            return false;
+
+        }
+        
         public bool DeleteUser()
         {
             ExtendLoginTime();
@@ -221,6 +373,7 @@ namespace MVVMProjectView.Connection
                 return true;
             }
 
+            var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
             return false;
 
         }
@@ -242,6 +395,7 @@ namespace MVVMProjectView.Connection
                 return true;
             }
 
+            var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
             return false;
 
         }
@@ -255,7 +409,30 @@ namespace MVVMProjectView.Connection
             }
         }
 
+        public void SendArduinoCall(string id)
+        {
+            var client = new RestClient("https://localhost:5001/api/arduino");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Postman-Token", "f1e620dc-11b2-4f4b-937d-308a20c058d1");
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("ApiKey", StaticResources.ApiKey.ToString());
+            request.AddHeader("Content-Type", "application/json");
 
+            List<string> ParamArr = new List<string>();
+            ParamArr.Add("\r\n \"id\": " + id);
+
+            string param = "{" + String.Join(",", ParamArr) + "\r\n}";
+            request.AddParameter("undefined", param, ParameterType.RequestBody);
+
+            IRestResponse response = client.Execute(request);
+
+            if (response.IsSuccessful)
+            {
+
+            }
+
+            var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
+        }
 
     }
 }

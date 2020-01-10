@@ -9,17 +9,17 @@
     <Grid>
         <Grid Margin="54,0,54,0" Width="785" VerticalAlignment="Top">
 
-            <Label Content="Add new category" HorizontalAlignment="Left" VerticalAlignment="Top" Width="372" FontSize="36"/>
+            <Label Name="lblTitle" Content="{Binding newCategoryHeader, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="372" FontSize="36"/>
 
             <Label Content="Category name:" HorizontalAlignment="Left" Margin="45,110,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="tbNewCat" Text="{Binding CategoryName}" HorizontalAlignment="Left" Height="23" Margin="143,110,0,0" VerticalAlignment="Top" Width="150" KeyUp="Add_New_KeyUp"/>
+            <TextBox x:Name="tbNewCat" Text="{Binding category.name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="143,110,0,0" VerticalAlignment="Top" Width="150" KeyUp="Add_New_KeyUp"/>
 
             <Label Content="Category Icon:" HorizontalAlignment="Left" Margin="45,145,0,0" VerticalAlignment="Top"/>
             <Button Content="upload" Height="40" Width="60" Margin="143,138,582,40" Click="Button_Click" />
 
             <Image x:Name="imgIcon" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding ConvertedImage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="235,138,0,0" />
 
-            <Button Content="Create" HorizontalAlignment="Left" Margin="143,198,0,0" VerticalAlignment="Top" Width="75" Click="Add_New_Click"/>
+            <Button x:Name="btnSet" Content="{Binding updateCreateName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Left" Margin="143,198,0,0" VerticalAlignment="Top" Width="75" Click="Add_New_Click"/>
 
             <Label Name="CatError" Content="{Binding NewCatError, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"  HorizontalAlignment="Left" Margin="143,76,0,0" VerticalAlignment="Top" FontSize="12" Foreground="Red" FontWeight="Bold"/>
             <Label Name="CatMessage" Content="{Binding NewCatMessage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"  HorizontalAlignment="Left" Margin="143,76,0,0" VerticalAlignment="Top" FontSize="12" Foreground="Green" FontWeight="Bold"/>
