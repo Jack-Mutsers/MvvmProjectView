@@ -66,7 +66,14 @@ namespace MVVMProjectView.Connection
             request.AddHeader("Postman-Token", "efcb9d6f-2cab-42ba-82de-6cd5aa0159b5");
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("undefined", "{\n \"username\": \"" + username + "\",\n \"password\": \"" + password + "\"\n}", ParameterType.RequestBody);
+
+            List<string> ParamArr = new List<string>();
+            ParamArr.Add("\r\n \"username\": \"" + username + "\"");
+            ParamArr.Add("\r\n \"password\": \"" + password + "\"");
+
+            string param = "{" + String.Join(",", ParamArr) + "\r\n}";
+            request.AddParameter("undefined", param, ParameterType.RequestBody);
+
             IRestResponse response = client.Execute(request);
 
             string responseContent = "";
@@ -430,8 +437,12 @@ namespace MVVMProjectView.Connection
             {
 
             }
+            else
+            {
 
-            var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
+                //var errorResponse = JsonConvert.DeserializeObject<Response>(response.Content);
+            }
+
         }
 
     }
